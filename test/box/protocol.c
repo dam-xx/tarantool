@@ -58,6 +58,22 @@ void test_bug702399()
 	       tnt_errcode_desc(tnt_res.errcode >> 8));
 }
 
+/** A test case for Bug#776962
+ * https://bugs.launchpad.net/tarantool/+bug/776962
+ * Server crashes on junk operation id
+ */
+
+void test_bug776962()
+{
+	const char message[]= {
+		0xff, 0x0, 0xff, 0x0,    0x4, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0,    0x0, 0x0, 0x0, 0x0};
+	struct tnt_result tnt_res;
+	int res = tnt_execute_raw(conn, message, sizeof message, &tnt_res);
+	printf("return_code: %s, %s\n",
+	       tnt_errcode_str(tnt_res.errcode >> 8),
+	       tnt_errcode_desc(tnt_res.errcode >> 8));
+}
 
 int main()
 {
@@ -68,6 +84,7 @@ int main()
 	test_ping();
 	test_bug702397();
 	test_bug702399();
+	test_bug776962();
 
 	tnt_disconnect(conn);
 	return 0;

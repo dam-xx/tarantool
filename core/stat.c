@@ -73,8 +73,10 @@ stat_register(char **name, size_t max_idx)
 void
 stat_collect(int base, int name, i64 value)
 {
-	stats[base + name].value[0] += value;
-	stats[base + name].value[SECS] += value;
+	if (base + name <= stats_max) {
+		stats[base + name].value[0] += value;
+		stats[base + name].value[SECS] += value;
+	}
 }
 
 void
