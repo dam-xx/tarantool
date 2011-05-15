@@ -29,16 +29,6 @@ read http://www.purposeful.co.uk/tfl/
 #define EX_USAGE EXIT_FAILURE
 #endif
 
-struct opt_spec_s {
-  int key;
-  int flags;
-  const char *shorts;
-  const char* const *longs;
-  const char *help_arg;
-  const char *help;
-};
-typedef struct opt_spec_s opt_spec_t;
-
 struct opt_s {
   int key;
   const char *arg;
